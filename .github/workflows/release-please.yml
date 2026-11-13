@@ -1,0 +1,23 @@
+name: Release Please
+
+# На каждый push в main release-please анализирует Conventional Commits
+# и держит открытым "Release PR" (bump версии в package.json + CHANGELOG.md).
+# Мерж Release PR → тег vX.Y.Z + GitHub Release. Деплой на Pages запускается
+# существующим deploy.yml по тому же push в main (уже с новой версией).
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

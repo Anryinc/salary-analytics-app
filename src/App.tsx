@@ -74,7 +74,10 @@ export default function App() {
 
   return (
     <div>
-      <h1>Аналитика зарплат</h1>
+      <header className="app-header">
+        <h1>Аналитика зарплат</h1>
+        <span className="app-version" title={`commit ${__APP_COMMIT__}`}>v{__APP_VERSION__}</span>
+      </header>
 
       <div className="card">
         <h3>Загрузка данных</h3>

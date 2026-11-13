@@ -11,3 +11,15 @@ class ResizeObserverStub {
   disconnect() {}
 }
 (globalThis as unknown as { ResizeObserver: typeof ResizeObserverStub }).ResizeObserver ??= ResizeObserverStub;
+
+// jsdom (v25) не реализует PointerEvent — нужен для тестов перетаскивания границ
+if (typeof globalThis.PointerEvent === 'undefined') {
+  class PointerEventStub extends MouseEvent {
+    pointerId: number;
+    constructor(type: string, init: PointerEventInit = {}) {
+      super(type, init);
+      this.pointerId = init.pointerId ?? 1;
+    }
+  }
+  (globalThis as unknown as { PointerEvent: typeof PointerEventStub }).PointerEvent = PointerEventStub;
+}

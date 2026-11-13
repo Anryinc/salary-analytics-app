@@ -1,6 +1,7 @@
 import { Bin, NormalizedPoint } from './types';
 
-function percentile(sorted: number[], p: number): number {
+/** Перцентиль с линейной интерполяцией: idx = (n-1)·p; пустой массив → 0. */
+export function percentile(sorted: number[], p: number): number {
   if (sorted.length === 0) return 0;
   const idx = (sorted.length - 1) * p;
   const lower = Math.floor(idx);
